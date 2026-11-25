@@ -8,8 +8,6 @@ from openai import OpenAI
 
 app = FastAPI(title="B2B Lead Enrichment Engine")
 
-# Uses Groq (free tier) or swap base_url to Gemini's OpenAI endpoint:
-# base_url="https://googleapis.com"
 client = OpenAI(
     api_key=os.environ.get("LLM_API_KEY"),
     base_url=os.environ.get("LLM_BASE_URL", "https://groq.com")
@@ -95,4 +93,3 @@ async def generate_copy(payload: CopyRequest):
         return json.loads(completion.choices[0].message.content)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
- 
